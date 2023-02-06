@@ -34,8 +34,9 @@ function random_bets(numberOfBetsPerPlayer::Vector{Int})
 
 end
 function random_bets(numberOfBets::Int)
-    global state
-    numberOfBetsPerPlayer = numberOfBets*ones(Int, length(state["PlayerSupply"]))
+    global params
+
+    numberOfBetsPerPlayer = numberOfBets*ones(Int, params["numberOfPlayers"])
     random_bets(numberOfBetsPerPlayer)
 end
 

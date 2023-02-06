@@ -14,7 +14,7 @@ function prompt_place_bets()
     #bots go first
     Bot.random_bets(BOTBETS.*botPlayersBool)
 
-    playerBets = [zeros(Int,params["numberOfPlayers"]) for i=1:params["numberOfFields"]]
+    playerBets = [zeros(Int,params["numberOfFields"]) for i=1:params["numberOfPlayers"]]
     choice = "blabla"
     for player in realPlayers
         println("Player ",player," may place their workers on the fields.")
@@ -23,7 +23,7 @@ function prompt_place_bets()
         choice = readline()
         playerBets[player] = parse_bets(choice)
     end
-
+    println("test here: ",playerBets)
     place_bets(playerBets)
     
 end

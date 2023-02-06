@@ -2,7 +2,7 @@ function new_game(deck::Stack{Card})
     global params
     println("stared new game with params = ", params)
     numberOfFields = params["numberOfFields"]
-    numberOfPlayers = params["numberOfFields"]
+    numberOfPlayers = params["numberOfPlayers"]
     initWorkers = params["initWorkers"]
 
     global state = deepcopy(BlankState)

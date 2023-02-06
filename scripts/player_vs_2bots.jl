@@ -11,7 +11,9 @@ turns = 10
 
 for i=1:turns
     println("turn ",i)
-    b.Bot.random_resources(4)
+    b.print_fields()
+    println()
+    b.Bot.random_resources(3)
     b.print_all()
     b.prompt_place_bets()
     b.resolve()
@@ -19,7 +21,8 @@ for i=1:turns
 
     println("end of turn\n")
 end
-
+b.print_all()
+println("game over")
 
 # b.Bot.random_resources(3)
 # b.Bot.random_bets(3)
