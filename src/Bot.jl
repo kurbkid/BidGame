@@ -15,7 +15,6 @@ function random_resources(numberOfResourcesPerField::Vector{Int})
 end
 function random_resources(numberOfResourcesPerField::Int)
     global state
-    println(state)
     vecm = numberOfResourcesPerField*ones(Int,sizeof(state["Fields"]))
     random_resources(vecm)
 end

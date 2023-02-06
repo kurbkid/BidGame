@@ -1,5 +1,4 @@
 
-
 function resolve(;verbose=true)
     global state
     numberOfFields = length(state["Fields"])
@@ -19,9 +18,11 @@ function resolve(;verbose=true)
     workersAtField = zeros(Int,numberOfPlayers)
     for field=1:numberOfFields
         workersAtField = betsPerFieldPerPlayer[field,:] # bets is named workers now, because linked to amount of resources one may take
+        verbose && println("field ",field,": workers = ",workersAtField," resources = ", state["Fields"][field])
         order = determine_order(workersAtField,findMod()) #order of picks determined by bets
+        verbose && println("         order = ",order)
         field==1 && return_moderator() ## returns so it can be picked after last mod determined order for it.
-        verbose && println("field ",field,": workers = ",workersAtField," order = ",order," resources = ", state["Fields"][field])
+        
         resourcesLeft = calc_resourcesLeft(state["Fields"][field])
         n = length(order)
         i=0
@@ -75,44 +76,7 @@ function determine_order(betsPerPlayer,modPlayer)
     order
 end
 
-### FOR NOW THE MOD JUST RANDOMLY ASSIGNS ORDER
-function prompt_order(equals,modPlayer)
-    N = length(equals)
-    order = []
-    #if modPlayer == 0 #make random order
-        while N>1
-            choice = rand(1:N) #index of chosen player
-            push!(order,equals[choice])
-            deleteat!(equals,choice)
-            N-=1
-        end
-        push!(order,equals[1]) #put the last remaining at the end
-    #end
-    order
-end
-
 function calc_resourcesLeft(f::Field)
     f.wood + f.metal + f.coal + length(f.objects)
 end
 
-### FOR NOW THE GAME JUST PICKS RANDOM RESOURCES FOR YOU
-function prompt_resource_choice(field,player)
-
-    #gather options
-    options = []
-    field.wood>0 && push!(options,1)
-    field.metal>0 && push!(options,2)
-    field.coal>0 && push!(options,3)
-    if length(field.objects)>0
-        options = vcat(options,field.objects)
-    end
-
-    #prompt choice
-    ## RANDOM FOR NOW
-    choice = rand(options)
-    if typeof(choice)<:Set
-        choice = rand(choice)
-    end
-
-    return choice
-end

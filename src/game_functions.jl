@@ -1,4 +1,6 @@
-function new_game(params,deck)
+function new_game(deck::Stack{Card})
+    global params
+    println("stared new game with params = ", params)
     numberOfFields = params["numberOfFields"]
     numberOfPlayers = params["numberOfFields"]
     initWorkers = params["initWorkers"]
@@ -14,9 +16,8 @@ function new_game(params,deck)
     return state
 end
 function new_game()
-    params = get_standard_params()
     deck = BlankState["Deck"]
-    new_game(params,deck)
+    new_game(deck)
 end
 
 

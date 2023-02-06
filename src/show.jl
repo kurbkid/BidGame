@@ -41,3 +41,18 @@ function print_fields()
 
 
 end
+
+
+function print_supply(player)
+    global state
+    println(" player ", player,"'s supply: ",state["PlayerSupply"][player])
+end
+
+function print_all()
+    global(params)
+    print_fields()
+    for player=1:params["numberOfPlayers"]
+        print_supply(player)
+    end
+end
+    

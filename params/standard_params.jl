@@ -3,5 +3,6 @@ function get_standard_params()
         "numberOfPlayers"   => 3,
         "numberOfFields"    => 3,
         "initWorkers"       => 6,
+        "botPlayers"        => [1,2,3],
     )
 end
