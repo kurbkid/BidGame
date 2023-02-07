@@ -10,7 +10,7 @@ function new_game()
 
     cardList = deckDict[params["deck"]]
     state["Deck"] = Stack{Card}()
-    for i=1:length(cardList)
+    for i in eachindex(cardList)
         push!(state["Deck"],cardList[i])
     end
     state["OpenCards"] = [cardDict["noCard"] for i=1:numberOfFields]
@@ -63,43 +63,23 @@ function return_moderator()
     player=1
     while "moderator" ∉ state["Fields"][1].objects && player<=length(state["PlayerSupply"])
         if "moderator" ∈ state["PlayerSupply"][player].objects
-            delete!(state["PlayerSupply"][player].objects,"moderator")
+            deleteat!(state["PlayerSupply"][player].objects,findfirst(state["PlayerSupply"][player].objects.=="moderator"))
+            push!(state["Fields"][1].objects,"moderator")
         end
         player+=1
     end
-    push!(state["Fields"][1].objects,"moderator")  #sets can't have multiple of the same element, so not dangerous.
+    if "moderator" ∉ state["Fields"][1].objects
+        error("moderator is missing")
+    end
     state
 end
 
 function move_resource_to_player(field::Field,supply::Supply,choice)
-    if choice == 1
-        if field.wood>0
-            field.wood -=1
-            supply.wood +=1
-        else
-            error("no wood to move")
-        end
-    elseif choice == 2
-        if field.metal>0
-            field.metal -=1
-            supply.metal +=1
-        else
-            error("no metal to move")
-        end
-    elseif choice == 3
-        if field.coal>0
-            field.coal -=1
-            supply.coal +=1
-        else
-            error("no coal to move")
-        end
-    elseif typeof(choice) == String
-        if choice in field.objects
-            delete!(field.objects,choice)
-            push!(supply.objects,choice)
-        else
-            error("typo in choice at move_resource_to_player???")
-        end
+    if choice in field.objects
+        deleteat!(field.objects,findfirst(field.objects.==choice))
+        push!(supply.objects,choice)
+    else
+        error("typo in choice at move_resource_to_player!??")
     end
     global state
     state

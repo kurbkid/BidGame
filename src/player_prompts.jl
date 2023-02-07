@@ -41,7 +41,7 @@ function prompt_order(equals,modPlayer)
         end
         push!(order,equals[1]) #put the last remaining at the end
     else
-        println("The Moderator: player ", modPlayer, " chooses who has priority")
+        println("The Moderator, player ", modPlayer, ", chooses who has priority")
         choice = "blabla"
         while N>1
             while choice ∉ equals
@@ -64,15 +64,7 @@ end
 function prompt_resource_choice(field,player)
     global params
 
-    #gather options
-    options = []
-    field.wood>0 && push!(options,1)
-    field.metal>0 && push!(options,2)
-    field.coal>0 && push!(options,3)
-    if length(field.objects)>0
-        options = vcat(options,field.objects...)
-    end
-
+    options = field.objects
     
     if length(options)==1   #shortcut only one type of resource left
         choice = options[1]
@@ -82,11 +74,8 @@ function prompt_resource_choice(field,player)
         println("player ",player," has to choose a resource from ",field)
         choice = "blabla"
         while choice ∉ options
-            println("type one of these options: ", options)
+            println("type one of these options: ", format_objects_string(options))
             choice = readline()
-            if choice ∈ ["1","2","3"]
-                choice = parse(Int,choice)
-            end
         end
     end
     return choice

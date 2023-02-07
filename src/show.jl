@@ -1,3 +1,19 @@
+function format_objects_string(objectArray::Vector{String})
+    objectSet = Set(objectArray)
+    out = ""
+    n=1
+    for obj in objectSet
+        n = count(e->(e==obj),objectArray) #number of times this object appears in objectArray
+        if n==1
+            out *= obj*", "
+        else    
+            out *= string( n,"x ", obj,", " )
+        end
+    end
+    out = out[1:end-2]
+end
+
+
 function print_fields()
     global state
     f = state["Fields"]
@@ -7,45 +23,20 @@ function print_fields()
     numberOfPlayers = length(s)
 
     print("\n")
-    print("       ")
+    println("ring 2:   \tring 1:   \tcards and fields:")
     for i=1:numberOfFields
-        print("field ",i,"     ")
+        println("\t \t \t \t card ",i,":  ",format_objects_string(state["OpenCards"][i].effect))
+        print(state["Ring2"][i],"\t",state["Ring1"][i],"\t")
+        println("field ",i,": ",format_objects_string(state["Fields"][i].objects))
     end
-
-    #print resources
-    print("\n")
-    print("wood:  ")
-    for i=1:numberOfFields
-        print(f[i].wood,"           ")
-    end
-    print("\n")
-    print("metal: ")
-    for i=1:numberOfFields
-        print(f[i].metal,"           ")
-    end
-    print("\n")
-    print("coal:  ")
-    for i=1:numberOfFields
-        print(f[i].coal,"           ")
-    end
-    print("\n")
-    print("obj: ")
-    for i=1:numberOfFields
-        print(f[i].objects,"  ")
-    end
-    print("\n")
-
-    #print rings
-    println("ring1: ",state["Ring1"])
-    println("ring2: ",state["Ring2"])
-
+    println()
 
 end
 
 
 function print_supply(player)
     global state
-    println(" player ", player,"'s supply: ",state["PlayerSupply"][player])
+    println(" player ", player,": ",state["PlayerSupply"][player].worker,"x worker, ",format_objects_string(state["PlayerSupply"][player].objects))
 end
 
 function print_all()

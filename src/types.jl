@@ -5,21 +5,15 @@ struct Card
 end
 
 mutable struct Field
-    wood::Int
-    metal::Int
-    coal::Int
-    objects::Set{String}
+    objects::Vector{String}
 
-    Field() = new(0,0,0,Set())
+    Field() = new(String[])
 end
 
 mutable struct Supply
-    wood::Int
-    metal::Int
-    coal::Int
     worker::Int
-    objects::Set{String}
+    objects::Vector{String}
 
-    Supply() = new(0,0,0,0,Set())
-    Supply(initWorkers) = new(0,0,0,initWorkers,Set())
+    Supply() = new(String[])
+    Supply(initWorkers) = new(initWorkers,String[])
 end

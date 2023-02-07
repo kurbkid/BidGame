@@ -3,7 +3,7 @@ cardDict = Dict{String,Card}(
     "noCard" => Card(
                         "0",
                         #0,
-                        "nothing",
+                        ["nothing"],
                     ),
     "card1" =>  Card(
                         "3 wood",

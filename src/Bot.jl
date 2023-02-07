@@ -6,10 +6,10 @@ import ..BidGame: add_resource, place_bets #game control functions
 function random_resources(numberOfResourcesPerField::Vector{Int})
     global state
     numberOfFields = length(state["Fields"])
+    resourceOptions = ["wood","metal","coal"] #this is temporary
     for i = 2:numberOfFields
-        choice = rand(1:3,numberOfResourcesPerField[i]) #choose 1, 2 or 3 number times
-        a = [sum(choice.==i) for i=1:3] #sum how often each was chosen.
-        add_resource(state["Fields"][i],a)
+        choice = rand(resourceOptions,numberOfResourcesPerField[i])
+        add_resource(state["Fields"][i],choice)
     end
     state
 end

@@ -18,7 +18,7 @@ function resolve(;verbose=true)
     workersAtField = zeros(Int,numberOfPlayers)
     for field=1:numberOfFields
         workersAtField = betsPerFieldPerPlayer[field,:] # bets is named workers now, because linked to amount of resources one may take
-        verbose && println("field ",field,": workers = ",workersAtField," resources = ", state["Fields"][field])
+        verbose && println("field ",field,": workers = ",workersAtField," resources = ", format_objects_string( state["Fields"][field].objects) )
         order = determine_order(workersAtField,findMod()) #order of picks determined by bets
         verbose && println("         order = ",order)
         field==1 && return_moderator() ## returns so it can be picked after last mod determined order for it.
@@ -37,6 +37,7 @@ function resolve(;verbose=true)
             if workersAtField[player]==0 #player may only take as many resources as he has workers.
                 n-=1
                 deleteat!(order,findfirst(order.==player))
+                i-=1 # removed player causes shift left in order. this compensates. (otherwise a turn is skipped)
             end
 
         end
@@ -77,6 +78,7 @@ function determine_order(betsPerPlayer,modPlayer)
 end
 
 function calc_resourcesLeft(f::Field)
-    f.wood + f.metal + f.coal + length(f.objects)
+    #f.wood + f.metal + f.coal + length(f.objects)
+    length(f.objects)
 end
 
