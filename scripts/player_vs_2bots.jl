@@ -13,7 +13,7 @@ for i=1:turns
     println("turn ",i)
     b.print_fields()
     println()
-    b.Bot.random_resources(3)
+    b.Bot.random_resources(2)
     b.print_all()
     b.prompt_place_bets()
     b.resolve()

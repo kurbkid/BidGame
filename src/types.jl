@@ -1,5 +1,6 @@
 struct Card
-    cost
+    name
+    #cost
     effect
 end
 

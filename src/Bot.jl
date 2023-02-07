@@ -1,6 +1,6 @@
 module Bot
 
-import ..BidGame: state #use state from parent module
+import ..BidGame: state,params #use state from parent module
 import ..BidGame: add_resource, place_bets #game control functions
 
 function random_resources(numberOfResourcesPerField::Vector{Int})

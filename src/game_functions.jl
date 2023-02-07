@@ -1,4 +1,4 @@
-function new_game(deck::Stack{Card})
+function new_game()
     global params
     println("stared new game with params = ", params)
     numberOfFields = params["numberOfFields"]
@@ -6,7 +6,14 @@ function new_game(deck::Stack{Card})
     initWorkers = params["initWorkers"]
 
     global state = deepcopy(BlankState)
-    state["Deck"] = deck
+    global deckDict
+
+    cardList = deckDict[params["deck"]]
+    state["Deck"] = Stack{Card}()
+    for i=1:length(cardList)
+        push!(state["Deck"],cardList[i])
+    end
+    state["OpenCards"] = [cardDict["noCard"] for i=1:numberOfFields]
     state["Fields"] = [Field() for i=1:numberOfFields]
     state["Ring1"]  = [zeros(Int,numberOfPlayers) for i=1:numberOfFields]
     state["Ring2"]  = [zeros(Int,numberOfPlayers) for i=1:numberOfFields]
@@ -15,11 +22,6 @@ function new_game(deck::Stack{Card})
 
     return state
 end
-function new_game()
-    deck = BlankState["Deck"]
-    new_game(deck)
-end
-
 
 function shift_rings()
     global state
@@ -102,3 +104,4 @@ function move_resource_to_player(field::Field,supply::Supply,choice)
     global state
     state
 end
+

@@ -4,5 +4,6 @@ function get_standard_params()
         "numberOfFields"    => 4,
         "initWorkers"       => 6,
         "botPlayers"        => [1,2,3],
+        "deck"              => "testdeck",
     )
 end

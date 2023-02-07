@@ -1,7 +1,7 @@
 function prompt_place_bets()
     global state
     global params
-    BOTBETS = 3 ##MAGIC NUMBER. THINK OF FANCY THING LATER
+    BOTBETS = floor(Int,params["initWorkers"]/2) ##MAGIC NUMBER. THINK OF FANCY THING LATER
     
     #in the real game placing bets is hidden and simultaneous.
     #here we just prompt each player 1 by 1.

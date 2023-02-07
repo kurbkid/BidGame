@@ -1,6 +1,7 @@
 module BidGame
 
 using DataStructures
+using Random
 include("params/standard_params.jl")
 include("src/types.jl")
 include("src/state.jl")
@@ -9,14 +10,19 @@ include("src/player_prompts.jl")
 include("src/parse_bets.jl")
 include("src/resolve.jl")
 include("src/field_functions.jl")
+include("cards/cards.jl")
+include("cards/decks.jl")
 include("src/card_functions.jl")
 include("src/Bot.jl")
 include("src/show.jl")
 
 using .Bot
 
+#globals
 state = deepcopy(BlankState)
 params = get_standard_params()
+cardDict
+deckDict
 
 function get_state()
     global state
