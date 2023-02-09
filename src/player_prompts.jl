@@ -66,7 +66,7 @@ function prompt_resource_choice(field,player)
 
     options = field.objects
     
-    if length(options)==1   #shortcut only one type of resource left
+    if length(Set(options))==1   #shortcut only one type of resource left
         choice = options[1]
     elseif player in params["botPlayers"] #botplayers choose randomly
         choice = rand(options)

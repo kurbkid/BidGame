@@ -1,9 +1,12 @@
 
-function resolve(;verbose=true)
+function resolve()
     global state
+    global params
+    verbose = params["verbose"]
+
     numberOfFields = length(state["Fields"])
     numberOfPlayers = length(state["PlayerSupply"])
-
+0
     # add the bets at each field
     betsPerFieldPerPlayer = zeros(Int,numberOfFields,numberOfPlayers)
     for player=1:numberOfPlayers
@@ -37,7 +40,7 @@ function resolve(;verbose=true)
             if workersAtField[player]==0 #player may only take as many resources as he has workers.
                 n-=1
                 deleteat!(order,findfirst(order.==player))
-                i-=1 # removed player causes shift left in order. this compensates. (otherwise a turn is skipped)
+                i-=1 # removed player causes shift left in order. this compensates. (otherwise a player is skipped)
             end
 
         end

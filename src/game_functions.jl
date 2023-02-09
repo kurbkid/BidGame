@@ -1,6 +1,6 @@
-function new_game()
+function setup_game()
     global params
-    println("stared new game with params = ", params)
+    println("setting up game with params = ", params)
     numberOfFields = params["numberOfFields"]
     numberOfPlayers = params["numberOfPlayers"]
     initWorkers = params["initWorkers"]
@@ -21,6 +21,12 @@ function new_game()
     push!(state["Fields"][1].objects,"moderator")
 
     return state
+end
+
+function check_end_game_condition()
+    global state 
+    global params 
+    return false
 end
 
 function shift_rings()
@@ -85,3 +91,16 @@ function move_resource_to_player(field::Field,supply::Supply,choice)
     state
 end
 
+function card_resources_to_field(card::Card,field::Field)
+    for r in card.resources
+        push!(field.objects,r)
+    end
+    field
+end
+function resolve_open_cards()
+    for i=2:length(state["OpenCards"])
+        card_resources_to_field(state["OpenCards"][i],state["Fields"][i])
+    end
+end
+
+        

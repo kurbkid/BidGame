@@ -13,6 +13,7 @@ include("src/field_functions.jl")
 include("cards/cards.jl")
 include("cards/decks.jl")
 include("src/card_functions.jl")
+include("src/round_script.jl")
 include("src/Bot.jl")
 include("src/show.jl")
 

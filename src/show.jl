@@ -25,7 +25,7 @@ function print_fields()
     print("\n")
     println("ring 2:   \tring 1:   \tcards and fields:")
     for i=1:numberOfFields
-        println("\t \t \t \t card ",i,":  ",format_objects_string(state["OpenCards"][i].effect))
+        println("\t \t \t \t card ",i,":  ",format_objects_string(state["OpenCards"][i].resources))
         print(state["Ring2"][i],"\t",state["Ring1"][i],"\t")
         println("field ",i,": ",format_objects_string(state["Fields"][i].objects))
     end

@@ -5,9 +5,14 @@ cardDict = Dict{String,Card}(
                         #0,
                         ["nothing"],
                     ),
-    "card1" =>  Card(
+    "3wood" =>  Card(
                         "3 wood",
                         #"1milliondollars",
                         ["wood","wood","wood"]
+                    ),
+    "2metal" => Card(
+                        "2 metal",
+                        #dasd,
+                        ["metal", "metal"]
                     ),
 )

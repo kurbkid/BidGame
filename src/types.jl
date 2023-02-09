@@ -1,7 +1,7 @@
 struct Card
     name
-    #cost
-    effect
+    #effect
+    resources
 end
 
 mutable struct Field

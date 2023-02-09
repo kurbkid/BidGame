@@ -5,5 +5,7 @@ function get_standard_params()
         "initWorkers"       => 6,
         "botPlayers"        => [1,2,3],
         "deck"              => "testdeck",
+        "verbose"           => true,
+        "maxTurns"          => 10,
     )
 end
