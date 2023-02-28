@@ -1,8 +1,3 @@
-module Bot
-
-import ..BidGame: state,params #use state from parent module
-import ..BidGame: add_resource, place_bets #game control functions
-
 function random_resources(numberOfResourcesPerField::Vector{Int})
     global state
     numberOfFields = length(state["Fields"])
@@ -39,6 +34,3 @@ function random_bets(numberOfBets::Int)
     numberOfBetsPerPlayer = numberOfBets*ones(Int, params["numberOfPlayers"])
     random_bets(numberOfBetsPerPlayer)
 end
-
-
-end #module

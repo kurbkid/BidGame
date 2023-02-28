@@ -5,6 +5,8 @@ function setup_game()
     numberOfPlayers = params["numberOfPlayers"]
     initWorkers = params["initWorkers"]
 
+    Bot.setup_bots(params["botList"])
+
     global state = deepcopy(BlankState)
     global deckDict
 
@@ -23,10 +25,10 @@ function setup_game()
     return state
 end
 
-function check_end_game_condition()
+function check_end_game_condition() 
     global state 
     global params 
-    return false
+    return false #placeholder
 end
 
 function shift_rings()
@@ -63,6 +65,14 @@ function place_bets(playerChoices::Vector{Vector{Int}})
     end
     state
 end
+function place_bets(player::Int,choices::Vector{Int})
+    global params
+    
+    playerChoices = [zeros(Int,params["numberOfFields"]) for i=1:params["numberOfPlayers"]]
+    playerChoices[player] += choices
+    place_bets(playerChoices)
+end
+
 
 function return_moderator()
     global state

@@ -1,27 +1,25 @@
 function prompt_place_bets()
     global state
     global params
-    BOTBETS = floor(Int,params["initWorkers"]/2) ##MAGIC NUMBER. THINK OF FANCY THING LATER
-    
+
     #in the real game placing bets is hidden and simultaneous.
     #here we just prompt each player 1 by 1.
-    #bots do random for now.
 
     botPlayers = params["botPlayers"]
-    realPlayers = setdiff(1:params["numberOfPlayers"],botPlayers)
-    botPlayersBool = [i in botPlayers for i=1:params["numberOfPlayers"]]
-
-    #bots go first
-    Bot.random_bets(BOTBETS.*botPlayersBool)
-
+ 
     playerBets = [zeros(Int,params["numberOfFields"]) for i=1:params["numberOfPlayers"]]
     choice = "blabla"
-    for player in realPlayers
-        println("Player ",player," may place their workers on the fields.")
-        print_supply(player)
-        println("type: \"k,l,m,n,...\" with integers and the correct number of fields (",params["numberOfFields"],").")
-        choice = readline()
-        playerBets[player] = parse_bets(choice)
+
+    for player in 1:params["numberOfPlayers"]
+        if player in botPlayers
+            playerBets[player] = Bot.prompt_bets(player)
+        else #player in realPlayers
+            println("Player ",player," may place their workers on the fields.")
+            print_supply(player)
+            println("type: \"k,l,m,n,...\" with integers and the correct number of fields (",params["numberOfFields"],").")
+            choice = readline()
+            playerBets[player] = parse_bets(choice)
+        end
     end
     println("test here: ",playerBets)
     place_bets(playerBets)
@@ -32,7 +30,7 @@ function prompt_order(equals,modPlayer)
     global params
     N = length(equals)
     order = []
-    if modPlayer == 0 || modPlayer ∈ params["botPlayers"] #make random order
+    if modPlayer == 0  #make random order
         while N>1
             choice = rand(1:N) #index of chosen player
             push!(order,equals[choice])
@@ -40,7 +38,9 @@ function prompt_order(equals,modPlayer)
             N-=1
         end
         push!(order,equals[1]) #put the last remaining at the end
-    else
+    elseif modPlayer ∈ params["botPlayers"]
+        order = Bot.prompt_order(equals,modPlayer)
+    else #modPlayer in realPlayers
         println("The Moderator, player ", modPlayer, ", chooses who has priority")
         choice = "blabla"
         while N>1
@@ -68,8 +68,8 @@ function prompt_resource_choice(field,player)
     
     if length(Set(options))==1   #shortcut only one type of resource left
         choice = options[1]
-    elseif player in params["botPlayers"] #botplayers choose randomly
-        choice = rand(options)
+    elseif player in params["botPlayers"]
+        choice = Bot.prompt_resource_choice(options,player)
     else #player gets message prompt
         println("player ",player," has to choose a resource from ",field)
         choice = "blabla"

@@ -14,7 +14,7 @@ include("cards/cards.jl")
 include("cards/decks.jl")
 include("src/card_functions.jl")
 include("src/round_script.jl")
-include("src/Bot.jl")
+include("src/Bot/Bot.jl")
 include("src/show.jl")
 
 using .Bot
